@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\Usuario;
 
 class IsUserAuth
 {
@@ -15,13 +16,26 @@ class IsUserAuth
      */
     public function handle(Request $request, Closure $next): Response
     {
-
-        if (auth('api')->user()) {
+        $token = $request->bearerToken() ?: $request->header('Authorization') ?: $request->input('api_token');
+        
+        if (!$token) {
+            return response()->json([
+                'message' => 'Token no proporcionado'
+            ], 401);
+        }
+        
+        $usuario = Usuario::where('api_token', $token)->first();
+        
+        if ($usuario) {
+            // Adjuntar el usuario a la solicitud para usarlo posteriormente
+            $request->setUserResolver(function () use ($usuario) {
+                return $usuario;
+            });
             return $next($request);
         }
 
         return response()->json([
-            'message'       =>      'No autorizado'
-        ]);
+            'message' => 'No autorizado'
+        ], 401);
     }
 }

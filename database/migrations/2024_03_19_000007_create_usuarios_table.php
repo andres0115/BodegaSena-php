@@ -14,11 +14,15 @@ return new class extends Migration
             $table->string('apellido', 255);
             $table->integer('edad');
             $table->string('cedula', 20);
-            $table->string('email', 255);
+            $table->string('email', 255)->unique();
             $table->string('telefono', 20);
             $table->string('direccion', 255);
             $table->date('fecha_registro');
             $table->foreignId('rol_id')->constrained('roles', 'id_rol');
+            $table->string('password');
+            $table->string('api_token', 80)->unique()->nullable()->default(null);
+            $table->rememberToken();
+            $table->timestamps();
         });
     }
 
