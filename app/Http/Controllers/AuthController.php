@@ -43,11 +43,11 @@ class AuthController extends Controller
         // Guardar el token en la base de datos
         $usuario->api_token = $token;
         $usuario->save();
+        
 
         return response()->json([
-            'usuario' => $usuario,
+            'mensaje' => 'Inicio de sesión exitoso',
             'token' => $token,
-            'message' => 'Inicio de sesión exitoso'
         ]);
     }
 
