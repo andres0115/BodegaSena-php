@@ -11,10 +11,9 @@ return new class extends Migration
         Schema::create('inventario', function (Blueprint $table) {
             $table->id('id_inventario');
             $table->integer('stock');
-            $table->foreignId('material_id')->constrained('materiales', 'id_material');
+            $table->string('placa_sena');
+            $table->string('descripcion');
             $table->foreignId('sitio_id')->constrained('sitios', 'id_sitio');
-            $table->date('fecha_modificacion');
-            $table->foreignId('categoria_id')->constrained('categorias_elementos', 'id_categoria_elemento');
         });
     }
 

@@ -11,9 +11,9 @@ return new class extends Migration
         Schema::create('tipo_materiales', function (Blueprint $table) {
             $table->id('id_tipo_material');
             $table->string('tipo_elemento', 100);
-            $table->string('estado', 50);
-            $table->date('fecha_creacion');
-            $table->date('fecha_modificacion');
+            $table->boolean('estado');
+            $table->timestamp('fecha_creacion')->useCurrent();
+            $table->timestamp('fecha_modificacion')->useCurrentOnUpdate()->nullable();
         });
     }
 

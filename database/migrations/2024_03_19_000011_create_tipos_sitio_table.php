@@ -11,9 +11,9 @@ return new class extends Migration
         Schema::create('tipos_sitio', function (Blueprint $table) {
             $table->id('id_tipo_sitio');
             $table->string('nombre_tipo_sitio', 255);
-            $table->string('estado', 50);
-            $table->date('fecha_creacion');
-            $table->date('fecha_modificacion');
+            $table->boolean('estado');
+            $table->timestamp('fecha_creacion')->useCurrent();
+            $table->timestamp('fecha_modificacion')->useCurrentOnUpdate()->nullable();
         });
     }
 

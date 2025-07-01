@@ -12,9 +12,9 @@ return new class extends Migration
             $table->id('id_rol');
             $table->string('nombre_rol', 100);
             $table->text('descripcion');
-            $table->string('estado', 50);
-            $table->date('fecha_creacion');
-            $table->date('fecha_modificacion');
+            $table->boolean('estado');
+            $table->timestamp('fecha_creacion')->useCurrent();
+            $table->timestamp('fecha_modificacion')->useCurrentOnUpdate()->nullable();
         });
     }
 

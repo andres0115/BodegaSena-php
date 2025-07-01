@@ -10,13 +10,16 @@ return new class extends Migration
     {
         Schema::create('materiales', function (Blueprint $table) {
             $table->id('id_material');
-            $table->string('codigo_serie', 100);
+            $table->string('codigo_sena', 100);
             $table->string('nombre_material', 255);
             $table->text('descripcion_material');
-            $table->string('numero_ingreso', 100);
-            $table->integer('cantidad_disponible');
-            $table->string('estado', 50);
+            $table->string('unidad_medida', 100);
+            $table->boolean('producto_peresedero');
+            $table->boolean('estado');
             $table->date('fecha_vencimiento');
+            $table->string('imagen');
+            $table->timestamp('fecha_creacion')->useCurrent();
+            $table->timestamp('fecha_modificacion')->useCurrentOnUpdate()->nullable();
             $table->foreignId('tipo_material_id')->constrained('tipo_materiales', 'id_tipo_material');
         });
     }

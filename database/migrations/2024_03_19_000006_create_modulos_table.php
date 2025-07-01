@@ -10,11 +10,16 @@ return new class extends Migration
     {
         Schema::create('modulos', function (Blueprint $table) {
             $table->id('id_modulo');
-            $table->string('nombre_modulo', 255);
-            $table->string('estado', 50);
-            $table->date('fecha_creacion');
-            $table->date('fecha_modificacion');
-            $table->foreignId('programa_id')->constrained('programas', 'id_programa');
+            $table->timestamp('fecha_accion')->nullable();
+            $table->string('rutas', 255);
+            $table->string('descripcion_ruta', 255);
+            $table->string('mensaje_cambio', 255);
+            $table->string('imagen', 255);
+            $table->boolean('estado');
+            $table->timestamp('fecha_creacion')->useCurrent();
+            $table->boolean('es_submenu');
+            $table->unsignedBigInteger('modulo_padre_id')->nullable();
+            $table->foreign('modulo_padre_id')->references('id_modulo')->on('modulos')->nullOnDelete();
         });
     }
 

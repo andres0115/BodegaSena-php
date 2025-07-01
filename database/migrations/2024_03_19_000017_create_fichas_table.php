@@ -11,8 +11,8 @@ return new class extends Migration
         Schema::create('fichas', function (Blueprint $table) {
             $table->id('id_ficha');
             $table->string('estado', 50);
-            $table->date('fecha_creacion');
-            $table->date('fecha_modificacion');
+            $table->timestamp('fecha_creacion')->useCurrent();
+            $table->timestamp('fecha_modificacion')->useCurrentOnUpdate()->nullable();
             $table->foreignId('usuario_id')->constrained('usuarios', 'id_usuario');
             $table->foreignId('programa_id')->constrained('programas', 'id_programa');
         });

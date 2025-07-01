@@ -12,12 +12,13 @@ return new class extends Migration
             $table->id('id_permiso');
             $table->string('nombre', 255);
             $table->string('codigo_nombre', 100);
-            $table->string('estado', 50);
-            $table->date('fecha_creacion');
+            $table->boolean('estado');
+            $table->boolean('puede_ver');
+            $table->boolean('puede_crear');
+            $table->boolean('puede_editar');
+            $table->timestamp('fecha_creacion');
             $table->foreignId('modulo_id')->constrained('modulos', 'id_modulo');
             $table->foreignId('rol_id')->constrained('roles', 'id_rol');
-            $table->string('tipo_permiso', 100);
-            $table->date('fecha_modificacion');
         });
     }
 

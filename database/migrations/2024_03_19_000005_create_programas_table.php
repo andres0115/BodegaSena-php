@@ -11,9 +11,9 @@ return new class extends Migration
         Schema::create('programas', function (Blueprint $table) {
             $table->id('id_programa');
             $table->string('nombre_programa', 255);
-            $table->string('estado', 50);
-            $table->date('fecha_creacion');
-            $table->date('fecha_modificacion');
+            $table->boolean('estado');
+            $table->timestamp('fecha_creacion')->useCurrent();
+            $table->timestamp('fecha_modificacion')->useCurrentOnUpdate()->nullable();
             $table->foreignId('area_id')->constrained('areas', 'id_area');
         });
     }

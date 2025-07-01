@@ -13,7 +13,7 @@ class Usuario extends Authenticatable
 
     protected $table = 'usuarios';
     protected $primaryKey = 'id_usuario';
-    public $timestamps = true;
+    public $timestamps = false;
 
     protected $fillable = [
         'nombre',
@@ -21,11 +21,11 @@ class Usuario extends Authenticatable
         'edad',
         'cedula',
         'email',
-        'telefono',
-        'direccion',
-        'fecha_registro',
-        'rol_id',
         'password',
+        'telefono',
+        'fecha_registro',
+        'estado',
+        'rol_id',
         'api_token',
     ];
     

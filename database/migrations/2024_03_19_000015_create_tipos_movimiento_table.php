@@ -11,9 +11,9 @@ return new class extends Migration
         Schema::create('tipos_movimiento', function (Blueprint $table) {
             $table->id('id_tipo_movimiento');
             $table->string('tipo_movimiento', 100);
-            $table->string('estado', 50);
-            $table->date('fecha_creacion');
-            $table->date('fecha_modificacion');
+            $table->boolean('estado');
+            $table->timestamp('fecha_creacion')->useCurrent();
+            $table->timestamp('fecha_modificacion')->useCurrentOnUpdate()->nullable();
         });
     }
 

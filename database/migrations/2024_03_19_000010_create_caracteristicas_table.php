@@ -10,7 +10,8 @@ return new class extends Migration
     {
         Schema::create('caracteristicas', function (Blueprint $table) {
             $table->id('id_caracteristica');
-            $table->string('descripcion', 255);
+            $table->boolean('placa_sena');
+            $table->boolean('descripcion');
             $table->foreignId('material_id')->constrained('materiales', 'id_material');
         });
     }

@@ -47,7 +47,8 @@
                 });
                 const data = await response.json();
                 if (response.ok) {
-                    resultDiv.innerHTML = `<span class='text-green-600 font-semibold'>Token:</span> <span class='break-all'>${data.token}</span><br><span class='text-gray-500'>${data.mensaje}</span>`;
+                    // Redirigir a la vista de admin
+                    window.location.href = '/admin';
                 } else {
                     resultDiv.innerHTML = `<span class='text-red-600'>${data.mensaje || 'Error de autenticación'}</span>`;
                 }
