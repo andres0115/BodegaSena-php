@@ -21,7 +21,7 @@ Route::post('register', [AuthController::class, 'register'])
 
 // ── TODAS LAS DEMÁS RUTAS REQUIEREN AUTENTICACIÓN ───────────────────────────────────
 
-Route::middleware(IsUserAuth::class)->group(function () {
+Route::middleware(['api', IsUserAuth::class])->group(function () {
     // Información del propio usuario
     Route::get('user', [AuthController::class, 'getUser'])
         ->name('auth.user');

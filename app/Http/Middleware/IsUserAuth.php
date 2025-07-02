@@ -16,7 +16,13 @@ class IsUserAuth
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $token = $request->bearerToken() ?: $request->header('Authorization') ?: $request->input('api_token');
+        $token = $request->bearerToken();
+        if (!$token) {
+            $token = $request->header('Authorization');
+            if ($token && str_starts_with($token, 'Bearer ')) {
+                $token = substr($token, 7);
+            }
+        }
         
         if (!$token) {
             return response()->json([
@@ -26,16 +32,17 @@ class IsUserAuth
         
         $usuario = Usuario::where('api_token', $token)->first();
         
-        if ($usuario) {
-            // Adjuntar el usuario a la solicitud para usarlo posteriormente
-            $request->setUserResolver(function () use ($usuario) {
-                return $usuario;
-            });
-            return $next($request);
+        if (!$usuario) {
+            return response()->json([
+                'message' => 'Token inválido o expirado'
+            ], 401);
         }
 
-        return response()->json([
-            'message' => 'No autorizado'
-        ], 401);
+        // Adjuntar el usuario a la solicitud para usarlo posteriormente
+        $request->setUserResolver(function () use ($usuario) {
+            return $usuario;
+        });
+        
+        return $next($request);
     }
 }

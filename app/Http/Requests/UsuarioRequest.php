@@ -24,6 +24,8 @@ class UsuarioRequest extends FormRequest
             'fecha_registro' => 'required|date',
             'rol_id' => 'required|exists:roles,id_rol',
             'password' => 'required|string|min:6',
+            'estado' => 'required|boolean',
+            'imagen' => 'nullable|string|max:255'
         ];
     }
 } 

@@ -20,18 +20,17 @@ class IsAdmin
         $usuario = $request->user();
         
         if (!$usuario) {
-            $token = $request->bearerToken() ?: $request->header('Authorization') ?: $request->input('api_token');
-            if ($token) {
-                $usuario = Usuario::where('api_token', $token)->first();
-            }
+            return response()->json([
+                'message' => 'Usuario no autenticado'
+            ], 401);
         }
 
-        if ($usuario && $usuario->rol && $usuario->rol->nombre_rol === 'Administrador') {
-            return $next($request);
-        } else {
+        if (!$usuario->rol || !in_array($usuario->rol->nombre_rol, ['Administrador', 'Super Administrador'])) {
             return response()->json([
                 'message' => 'No tienes permisos de administrador'
             ], 403);
         }
+
+        return $next($request);
     }
 }

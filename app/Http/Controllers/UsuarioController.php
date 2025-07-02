@@ -16,11 +16,22 @@ class UsuarioController extends Controller
 
     public function store(UsuarioRequest $request)
     {
-        $datos = $request->validated();
-        $datos['password'] = Hash::make($datos['password']);
-        
-        $usuario = Usuario::create($datos);
-        return response()->json($usuario, 201);
+        try {
+            $datos = $request->validated();
+            $datos['password'] = Hash::make($datos['password']);
+            
+            $usuario = Usuario::create($datos);
+            
+            return response()->json([
+                'message' => 'Usuario creado exitosamente',
+                'usuario' => $usuario
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Error al crear el usuario',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
     public function show($id)
